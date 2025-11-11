@@ -21,32 +21,70 @@ SELECT * FROM climate;
 SELECT * FROM observations;
 
 
+
 -- MISSION 1
 -- Your query here;
+SELECT * FROM observations
+LIMIT 10;
 
 -- MISSION 2
 -- Your query here;
-
+SELECT DISTINCT region_id FROM observations;
 
 -- MISSION 3
 -- Your query here;
-
+SELECT COUNT(DISTINCT species_id) FROM observations;
 
 -- MISSION 4
 -- Your query here;
-
+SELECT COUNT(*) FROM observations
+WHERE region_id = 2;
 
 -- MISSION 5
 -- Your query here;
-
+SELECT COUNT(*) FROM observations
+WHERE observation_date = '1998-08-08';
 
 -- MISSION 6
 -- Your query here;
+SELECT region_id, COUNT(*) AS total_observations FROM observations
+GROUP BY region_id ORDER BY total_observations DESC
+LIMIT 1;
 
 
 -- MISSION 7
 -- Your query here;
-
+SELECT species_id, COUNT(*) AS total_species FROM observations
+GROUP BY species_id ORDER BY total_species DESC
+LIMIT 5;
 
 -- MISSION 8
 -- Your query here;
+SELECT species_id, COUNT(*) AS observation_count FROM observations
+GROUP BY species_id
+HAVING observation_count < 5 ORDER BY observation_count ASC;
+
+-- MISSION 9
+-- Your query here;
+SELECT observer, COUNT(*) AS total FROM observations
+GROUP BY observer ORDER BY total DESC;
+
+-- MISSION 10
+-- Your query here;
+SELECT observations.id, regions.name AS region_name, observations.observation_date
+FROM observations
+JOIN regions ON observations.region_id = regions.id;
+
+-- MISSION 11
+-- Your query here;
+SELECT observations.id, species.scientific_name FROM observations
+JOIN species ON observations.species_id = species.id;
+
+-- MISSION 12
+-- Your query here;
+SELECT regions.name AS region, species.scientific_name, COUNT(*) AS total
+FROM observations
+JOIN species ON observations.species_id = species.id
+JOIN regions ON observations.region_id = regions.id
+GROUP BY region, species.scientific_name
+ORDER BY region, total DESC;
